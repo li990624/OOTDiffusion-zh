@@ -1,61 +1,60 @@
 # OOTDiffusion
-This repository is the official implementation of OOTDiffusion
+这个仓库是OOTDiffusion的官方实现
 
-🤗 [Try out OOTDiffusion](https://huggingface.co/spaces/levihsu/OOTDiffusion)
+🤗 [试用OOTDiffusion](https://huggingface.co/spaces/levihsu/OOTDiffusion)
 
-(Thanks to [ZeroGPU](https://huggingface.co/zero-gpu-explorers) for providing A100 GPUs)
+（感谢[ZeroGPU](https://huggingface.co/zero-gpu-explorers)提供A100 GPUs）
 
-<!-- Or [try our own demo](https://ootd.ibot.cn/) on RTX 4090 GPUs -->
+<!-- 或[试用我们的demo](https://ootd.ibot.cn/)在RTX 4090 GPUs上 -->
 
-> **OOTDiffusion: Outfitting Fusion based Latent Diffusion for Controllable Virtual Try-on** [[arXiv paper](https://arxiv.org/abs/2403.01779)]<br>
-> [Yuhao Xu](http://levihsu.github.io/), [Tao Gu](https://github.com/T-Gu), [Weifeng Chen](https://github.com/ShineChen1024), [Chengcai Chen](https://www.researchgate.net/profile/Chengcai-Chen)<br>
-> Xiao-i Research
+> **OOTDiffusion: 基于Outfitting Fusion的可控虚拟试穿的潜在扩散** [[arXiv论文](https://arxiv.org/abs/2403.01779)]<br>
+> [徐宇昊](http://levihsu.github.io/), [古涛](https://github.com/T-Gu), [陈伟锋](https://github.com/ShineChen1024), [陈成才](https://www.researchgate.net/profile/Chengcai-Chen)<br>
+> 晓艾研究院
 
+我们在[VITON-HD](https://github.com/shadow2496/VITON-HD)（半身）和[Dress Code](https://github.com/aimagelab/dress-code)（全身）上训练的模型检查点已经发布
 
-Our model checkpoints trained on [VITON-HD](https://github.com/shadow2496/VITON-HD) (half-body) and [Dress Code](https://github.com/aimagelab/dress-code) (full-body) have been released
-
-* 🤗 [Hugging Face link](https://huggingface.co/levihsu/OOTDiffusion) for ***checkpoints*** (ootd, humanparsing, and openpose)
-* 📢📢 We support ONNX for [humanparsing](https://github.com/GoGoDuck912/Self-Correction-Human-Parsing) now. Most environmental issues should have been addressed : )
-* Please also download [clip-vit-large-patch14](https://huggingface.co/openai/clip-vit-large-patch14) into ***checkpoints*** folder
-* We've only tested our code and models on Linux (Ubuntu 22.04)
+* 🤗 [Hugging Face链接](https://huggingface.co/levihsu/OOTDiffusion)获取***检查点***（ootd, humanparsing, 和openpose）
+* 📢📢 我们现在支持用于[humanparsing](https://github.com/GoGoDuck912/Self-Correction-Human-Parsing)的ONNX。大多数环境问题应该已经解决了 : )
+* 请将[clip-vit-large-patch14](https://huggingface.co/openai/clip-vit-large-patch14)下载到***checkpoints***文件夹
+* 我们的代码和模型只在Linux（Ubuntu 22.04）上测试过
 
 ![demo](images/demo.png)&nbsp;
 ![workflow](images/workflow.png)&nbsp;
 
-## Installation
-1. Clone the repository
+## 安装
+1. 克隆仓库
 
-```sh
-git clone https://github.com/levihsu/OOTDiffusion
-```
+    ```sh
+    git clone https://github.com/levihsu/OOTDiffusion
+    ```
 
-2. Create a conda environment and install the required packages
+2. 创建conda环境并安装所需包
 
-```sh
-conda create -n ootd python==3.10
-conda activate ootd
-pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
-pip install -r requirements.txt
-```
+    ```sh
+    conda create -n ootd python==3.10
+    conda activate ootd
+    pip install torch==2.0.1 torchvision==0.15.2 torchaudio==2.0.2
+    pip install -r requirements.txt
+    ```
 
-## Inference
-1. Half-body model
+## 推理
+1. 半身模型
 
-```sh
-cd OOTDiffusion/run
-python run_ootd.py --model_path <model-image-path> --cloth_path <cloth-image-path> --scale 2.0 --sample 4
-```
+    ```sh
+    cd OOTDiffusion/run
+    python run_ootd.py --model_path <模型图像路径> --cloth_path <服装图像路径> --scale 2.0 --sample 4
+    ```
 
-2. Full-body model 
+2. 全身模型 
 
-> Garment category must be paired: 0 = upperbody; 1 = lowerbody; 2 = dress
+    > 服装类别必须配对：0 = 上半身；1 = 下半身；2 = 连衣裙
 
-```sh
-cd OOTDiffusion/run
-python run_ootd.py --model_path <model-image-path> --cloth_path <cloth-image-path> --model_type dc --category 2 --scale 2.0 --sample 4
-```
+    ```sh
+    cd OOTDiffusion/run
+    python run_ootd.py --model_path <模型图像路径> --cloth_path <服装图像路径> --model_type dc --category 2 --scale 2.0 --sample 4
+    ```
 
-## Citation
+## 引用
 ```
 @article{xu2024ootdiffusion,
   title={OOTDiffusion: Outfitting Fusion based Latent Diffusion for Controllable Virtual Try-on},
